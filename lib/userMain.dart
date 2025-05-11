@@ -78,7 +78,7 @@ class Usermain extends StatelessWidget{
                       border: Border(
                       top: BorderSide(color: varC, width: 2),
                       bottom: BorderSide(color: varC, width: 3),
-                      left: BorderSide(color: varC, width: 1),
+                      left: BorderSide(color: varC, width: 3),
                       right: BorderSide(color: varC, width: 1),
                       ),
                     ),

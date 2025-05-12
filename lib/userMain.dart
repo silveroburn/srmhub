@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 
@@ -15,19 +16,14 @@ class Usermain extends StatelessWidget{
       child: Column(
         children: [
           Container(
-            color: Colors.transparent,
+            color: Colors.black,
             height: 150,
             child: Column(
               children: [
-                SizedBox(height: 20,),
-                // Container(
-                //   width: 200,
-                //   height: 200,
-                //   child: Image.asset('asset/imageTest.jpg', fit: BoxFit.fill)),
                 Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 20, left: 20),
+                    padding: EdgeInsets.only(top: 5, left: 20),
                     child: Container(
                       height: 80,
                       width: 80,
@@ -42,8 +38,8 @@ class Usermain extends StatelessWidget{
                   ),
                   SizedBox(width: 20,),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 10),
@@ -51,7 +47,6 @@ class Usermain extends StatelessWidget{
                       Text('ranking: #300', style: GoogleFonts.poppins(color: Colors.white60, fontSize: 18, ),)
                     ]
                   ),
-              
                 ],
               ),]
             ),
@@ -67,17 +62,17 @@ class Usermain extends StatelessWidget{
             child: Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: GridView.count(crossAxisCount: 2,
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
                 children: List.generate(userMainInfo.length, (index){
-                  var varC = Colors.white60;
+                  var varC = Colors.white60.withAlpha(50);
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.transparent,
+                      color: Colors.white60.withAlpha(50),
                       borderRadius: BorderRadius.circular(15),
                       border: Border(
-                      top: BorderSide(color: varC, width: 2),
-                      bottom: BorderSide(color: varC, width: 3),
+                      top: BorderSide(color: varC, width: 1),
+                      bottom: BorderSide(color: varC, width: 1),
                       left: BorderSide(color: varC, width: 1),
                       right: BorderSide(color: varC, width: 1),
                       ),
@@ -114,11 +109,118 @@ class Usermain extends StatelessWidget{
     );
   }
 
+Widget customHeightDrawer() {
+  var r = 25;
+  var g = 25;
+  var b = 25;
+  
+  return Builder(
+    builder: (context) {
+      return Container(
+        width: 280, // Standard drawer width
+        height: 700, // Your desired fixed height
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, r, g, b),
+          borderRadius: BorderRadius.circular(0),
+          border: Border.all(
+            color: Colors.white
+          )
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, r, g, b)
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: Text(
+                  'Username', 
+                  style: GoogleFonts.poppins(
+                    color: Colors.white, 
+                    fontSize: 30, 
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Option 1', 
+                style: GoogleFonts.poppins(
+                  color: Colors.white54, 
+                  fontSize: 20, 
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Option 2', 
+                style: GoogleFonts.poppins(
+                  color: Colors.white54, 
+                  fontSize: 20, 
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Option 3', 
+                style: GoogleFonts.poppins(
+                  color: Colors.white54, 
+                  fontSize: 20, 
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Option 4', 
+                style: GoogleFonts.poppins(
+                  color: Colors.white54, 
+                  fontSize: 20, 
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
+      );
+    }
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: mainBody(context),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 35,
+        leading: Padding(
+          padding: EdgeInsets.only(top: 8), 
+          child: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
+      ),
+      drawer: customHeightDrawer(),
+      body: Builder(
+        builder: (context) => GestureDetector(
+          onLongPress: (){
+            Scaffold.of(context).openDrawer();
+          },
+        child: mainBody(context)),
+        ),
     );
   }
 }
